@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Email Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+
+    .email-box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background: #0070f3;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #005bb5;
+    }
+  </style>
+</head>
+<body>
+  <div class="email-box">
+    <h2 id="email">Loading...</h2>
+    <button onclick="copyEmail()">Copy</button>
+  </div>
+
+  <script>
+    const base = "elefantulcici537";
+    const domain = "@gmail.com";
+
+    function generateRandomString(length = 6) {
+      const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+      return Array.from({ length }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+    }
+
+    function generateEmail() {
+      const random = generateRandomString();
+      const fullEmail = `${base}+${random}${domain}`;
+      document.getElementById("email").innerText = fullEmail;
+      return fullEmail;
+    }
+
+    function copyEmail() {
+      const email = generateEmail(); // Regenerate on copy
+      navigator.clipboard.writeText(email).then(() => {
+        alert("Email copied: " + email);
+      });
+    }
+
+    // Initial generation
+    window.onload = generateEmail;
+  </script>
+</body>
+</html>
